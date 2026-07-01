@@ -39,6 +39,31 @@ function calculaTempo(tempoObjetivo) {
     }
 }
 
+function calculaSituacao(tempoObjetivo) {
+    let tempoAtual = new Date();
+    let tempoFinal = tempoObjetivo - tempoAtual;
+    let segundos = Math.floor(tempoFinal / 1000);
+    let minutos = Math.floor(segundos / 60);
+    let horas = Math.floor(minutos / 60);
+    let dias = Math.floor(horas / 24);
+
+    segundos %= 60;
+    minutos %= 60;
+    horas %= 24;
+
+    if (tempoFinal > 0) {
+        return "Ainda da tempo!";
+    } else {
+        return "Perdeu !!!";
+    }
+}
+
+function atualizaSituacao() {
+    for(let i=0; i < situacoes.length; i++) {
+        situacoes[i].textContent = calculaSituacao(tempo[i]) 
+    }
+}
+
 function atualizarCronometro() {
     document.getElementById("dias0").textContent = calculaTempo(tempos[0])[0];
     document.getElementById("horas0").textContent = calculaTempo(tempos[0])[1];
@@ -56,3 +81,4 @@ function comecaCronometro() {
 }
 
 comecaCronometro();
+atualizaSituacao();
